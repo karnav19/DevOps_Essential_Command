@@ -1,1 +1,433 @@
+================================
+ FILE & DIRECTORY COMMANDS
+================================
+
+ls  
+→ Lists files in a directory.  
+Example: ls /var/log
+
+ls -l  
+→ Shows detailed file info.  
+Example: ls -l /etc
+
+ls -a  
+→ Shows hidden files.  
+Example: ls -a ~
+
+pwd  
+→ Prints current directory.  
+Example: pwd
+
+cd /path  
+→ Changes directory.  
+Example: cd /etc/nginx
+
+cd ..  
+→ Moves one level up.  
+Example: cd ..
+
+mkdir folder  
+→ Creates a new folder.  
+Example: mkdir backups
+
+mkdir -p a/b/c  
+→ Creates nested folders.  
+Example: mkdir -p /opt/app/logs
+
+rm file  
+→ Deletes a file.  
+Example: rm notes.txt
+
+rm -r folder  
+→ Deletes a folder recursively.  
+Example: rm -r test_folder
+
+cp file1 file2  
+→ Copies a file.  
+Example: cp app.conf app_backup.conf
+
+cp -r dir1 dir2  
+→ Copies a whole directory.  
+Example: cp -r /var/www /backup/
+
+mv old new  
+→ Moves or renames files.  
+Example: mv file.txt file_old.txt
+
+touch file.txt  
+→ Creates an empty file.  
+Example: touch server.log
+
+cat file.txt  
+→ Displays full file content.  
+Example: cat /etc/os-release
+
+head file.txt  
+→ Shows first 10 lines.  
+Example: head /var/log/syslog
+
+tail file.txt  
+→ Shows last 10 lines.  
+Example: tail /var/log/auth.log
+
+tail -f file.txt  
+→ Shows live logs.  
+Example: tail -f /var/log/nginx/access.log
+
+
+================================
+ PERMISSIONS & OWNERSHIP
+================================
+
+chmod 755 file  
+→ Sets read/write/execute for owner; read/execute for others.  
+Example: chmod 755 deploy.sh
+
+chmod u+x file  
+→ Adds execute permission for user.  
+Example: chmod u+x script.sh
+
+chown user file  
+→ Changes file owner.  
+Example: chown arnav app.log
+
+chown user:group file  
+→ Changes owner and group.  
+Example: chown arnav:dev app.log
+
+umask  
+→ Shows default permission mask.  
+Example: umask
+
+stat file  
+→ Shows full file metadata.  
+Example: stat index.html
+
+
+================================
+ SEARCHING & FINDING
+================================
+
+find /path -name "*.txt"  
+→ Finds files by name.  
+Example: find /var/log -name "*.log"
+
+find . -type f  
+→ Lists only files.  
+Example: find . -type f
+
+find . -size +10M  
+→ Finds files larger than 10MB.  
+Example: find /var -size +100M
+
+grep "text" file  
+→ Searches text in file.  
+Example: grep "error" app.log
+
+grep -r text folder  
+→ Recursive text search.  
+Example: grep -r "failed" /etc
+
+locate filename  
+→ Quickly finds file by name.  
+Example: locate nginx.conf
+
+
+================================
+ NETWORKING COMMANDS
+================================
+
+ip a  
+→ Shows system IP addresses.  
+Example: ip a | grep inet
+
+ip r  
+→ Shows routing table.  
+Example: ip r
+
+ping google.com  
+→ Tests internet connectivity.  
+Example: ping -c 4 google.com
+
+curl URL  
+→ Fetches content from a URL.  
+Example: curl https://api.github.com
+
+curl -I URL  
+→ Fetches HTTP headers only.  
+Example: curl -I https://google.com
+
+wget URL  
+→ Downloads a file.  
+Example: wget https://site.com/file.zip
+
+ss -tulpn  
+→ Lists open ports & services.  
+Example: ss -tulpn | grep 80
+
+nslookup domain  
+→ DNS query lookup.  
+Example: nslookup google.com
+
+dig domain  
+→ Advanced DNS lookup.  
+Example: dig google.com +short
+
+ssh user@host  
+→ Connects to SSH server.  
+Example: ssh ubuntu@192.168.1.10
+
+scp file user@host:/path  
+→ Copies file to remote server.  
+Example: scp backup.zip root@10.0.0.5:/tmp/
+
+
+================================
+ PROCESS MANAGEMENT
+================================
+
+ps  
+→ Shows your running processes.  
+Example: ps
+
+ps aux  
+→ Shows all system processes.  
+Example: ps aux | grep nginx
+
+top  
+→ Live process and CPU monitor.  
+Example: top
+
+htop  
+→ Improved top (if installed).  
+Example: htop
+
+kill PID  
+→ Stops a process.  
+Example: kill 1234
+
+kill -9 PID  
+→ Force kills a process.  
+Example: kill -9 1234
+
+pkill name  
+→ Kills process by name.  
+Example: pkill nginx
+
+nice -n 10 command  
+→ Runs command with low priority.  
+Example: nice -n 10 backup.sh
+
+renice PID  
+→ Changes priority of running process.  
+Example: renice 5 1234
+
+
+================================
+ DISK & STORAGE COMMANDS
+================================
+
+df -h  
+→ Shows disk space usage.  
+Example: df -h
+
+du -sh folder  
+→ Shows folder size.  
+Example: du -sh /var/log
+
+lsblk  
+→ Lists block devices.  
+Example: lsblk
+
+fdisk -l  
+→ Lists disk partitions.  
+Example: sudo fdisk -l
+
+mount /dev/sdX /mnt  
+→ Mounts a device.  
+Example: mount /dev/sdb1 /mnt
+
+umount /mnt  
+→ Unmounts device.  
+Example: umount /mnt
+
+
+================================
+ USER & GROUP MANAGEMENT
+================================
+
+whoami  
+→ Shows your username.  
+Example: whoami
+
+id  
+→ Shows user ID and groups.  
+Example: id arnav
+
+adduser username  
+→ Creates new user.  
+Example: adduser admin
+
+passwd username  
+→ Sets user password.  
+Example: passwd admin
+
+usermod -aG group user  
+→ Adds user to group.  
+Example: usermod -aG sudo arnav
+
+groups user  
+→ Shows user's groups.  
+Example: groups arnav
+
+
+================================
+ SERVICES / SYSTEMCTL
+================================
+
+systemctl status service  
+→ Shows service status.  
+Example: systemctl status nginx
+
+systemctl start service  
+→ Starts a service.  
+Example: systemctl start docker
+
+systemctl stop service  
+→ Stops a service.  
+Example: systemctl stop apache2
+
+systemctl enable service  
+→ Enables auto startup.  
+Example: systemctl enable docker
+
+systemctl disable service  
+→ Disables auto startup.  
+Example: systemctl disable apache2
+
+
+================================
+ PACKAGE MANAGEMENT
+================================
+
+apt update  
+→ Updates package index.  
+Example: sudo apt update
+
+apt upgrade  
+→ Installs updates.  
+Example: sudo apt upgrade
+
+apt install pkg  
+→ Installs a package.  
+Example: sudo apt install nginx
+
+yum install pkg  
+→ Installs package on RHEL/CentOS.  
+Example: sudo yum install httpd
+
+
+================================
+ ENV VARIABLES
+================================
+
+echo $VAR  
+→ Shows variable value.  
+Example: echo $PATH
+
+export VAR=value  
+→ Sets environment variable.  
+Example: export ENV=prod
+
+unset VAR  
+→ Removes variable.  
+Example: unset ENV
+
+printenv  
+→ Shows environment variables.  
+Example: printenv
+
+
+================================
+ COMPRESS / EXTRACT
+================================
+
+tar -czvf file.tar.gz folder  
+→ Creates compressed tar.  
+Example: tar -czvf logs.tar.gz /var/log
+
+tar -xzvf file.tar.gz  
+→ Extracts compressed tar.  
+Example: tar -xzvf logs.tar.gz
+
+zip file.zip folder  
+→ Creates ZIP file.  
+Example: zip -r backup.zip /etc
+
+unzip file.zip  
+→ Extracts ZIP.  
+Example: unzip backup.zip
+
+
+================================
+ SSH & SECURITY
+================================
+
+ssh user@host  
+→ SSH login.  
+Example: ssh root@10.0.0.5
+
+ssh-keygen  
+→ Generates SSH keys.  
+Example: ssh-keygen -t rsa
+
+ssh-copy-id user@host  
+→ Copies public key to server.  
+Example: ssh-copy-id ubuntu@10.0.0.5
+
+ufw enable  
+→ Enables firewall.  
+Example: sudo ufw enable
+
+ufw allow 22  
+→ Allows SSH.  
+Example: sudo ufw allow 22
+
+
+================================
+ CRON JOBS
+================================
+
+crontab -e  
+→ Edits cron jobs.  
+Example: crontab -e
+
+crontab -l  
+→ Lists cron jobs.  
+Example: crontab -l
+
+
+================================
+ LOGS & TROUBLESHOOTING
+================================
+
+journalctl -u service  
+→ Shows logs for a service.  
+Example: journalctl -u nginx
+
+journalctl -f  
+→ Follows logs in real time.  
+Example: journalctl -f
+
+dmesg  
+→ Shows kernel/hardware logs.  
+Example: dmesg | tail
+
+tail -f /var/log/syslog  
+→ Live system logs (Ubuntu).  
+Example: tail -f /var/log/syslog
+
+tail -f /var/log/messages  
+→ Live logs (CentOS/RHEL).  
+Example: tail -f /var/log/messages
 
