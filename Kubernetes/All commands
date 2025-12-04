@@ -1,1 +1,219 @@
+========================================
+ BASIC KUBECTL COMMANDS (MOST USED)
+========================================
 
+kubectl version  
+→ Shows client & server Kubernetes versions.
+
+kubectl get nodes  
+→ Lists all worker & master nodes in the cluster.
+
+kubectl get pods  
+→ Lists all pods in the default namespace.
+
+kubectl get pods -A  
+→ Lists pods in all namespaces (very useful for debugging).
+
+kubectl get svc  
+→ Shows all services (ClusterIP, NodePort, LoadBalancer).
+
+kubectl get deployments  
+→ Lists all deployments in the namespace.
+
+kubectl describe pod podname  
+→ Shows detailed information about a pod (events, restarts, issues).
+
+kubectl logs podname  
+→ Retrieves logs of a pod (useful for debugging app errors).
+
+kubectl logs -f podname  
+→ Streams logs live (like tail -f).
+
+kubectl exec -it podname -- bash  
+→ Opens a shell inside the container (interactive debugging).
+
+kubectl delete pod podname  
+→ Deletes a pod (it will be recreated if part of a Deployment).
+
+
+========================================
+ NAMESPACE COMMANDS
+========================================
+
+kubectl get ns  
+→ List all namespaces.
+
+kubectl create ns dev  
+→ Create a new namespace.
+
+kubectl delete ns dev  
+→ Delete a namespace and all resources inside it.
+
+kubectl get pods -n kube-system  
+→ View system-level pods.
+
+
+========================================
+ DEPLOYMENTS & REPLICAS
+========================================
+
+kubectl create deployment nginx --image=nginx  
+→ Creates a deployment with an NGINX container.
+
+kubectl get deployments  
+→ Shows all deployments.
+
+kubectl scale deployment nginx --replicas=3  
+→ Increases number of pod replicas.
+
+kubectl edit deployment nginx  
+→ Edit the deployment live (opens editor).
+
+kubectl rollout status deployment nginx  
+→ Checks rollout progress of a deployment.
+
+kubectl rollout undo deployment nginx  
+→ Rollback to previous working version.
+
+
+========================================
+ SERVICES (EXPOSING APPLICATIONS)
+========================================
+
+kubectl expose deployment nginx --port=80 --type=NodePort  
+→ Exposes nginx deployment outside the cluster.
+
+kubectl get svc  
+→ Shows all services and their ports.
+
+kubectl describe svc nginx  
+→ Shows service details (selectors, endpoints).
+
+
+========================================
+ CONFIGMAPS & SECRETS
+========================================
+
+kubectl create configmap appconfig --from-literal=ENV=prod  
+→ Creates a ConfigMap from key-value.
+
+kubectl get configmaps  
+→ Lists ConfigMaps.
+
+kubectl describe configmap appconfig  
+→ Shows ConfigMap contents.
+
+kubectl create secret generic mysecret --from-literal=password=12345  
+→ Creates a Secret.
+
+kubectl get secrets  
+→ Lists secrets.
+
+kubectl describe secret mysecret  
+→ Shows metadata but **not** actual values.
+
+
+========================================
+ POD & YAML FILE OPERATIONS
+========================================
+
+kubectl apply -f pod.yaml  
+→ Creates or updates resources from YAML.
+
+kubectl delete -f pod.yaml  
+→ Deletes resources from YAML.
+
+kubectl get -f pod.yaml  
+→ Gets resources defined in the YAML.
+
+kubectl explain deployment  
+→ Shows documentation for resource fields (super useful).
+
+
+========================================
+ PORT-FORWARDING
+========================================
+
+kubectl port-forward podname 8080:80  
+→ Forward local port 8080 → container port 80.
+
+Used to test services running inside cluster without exposing them.
+
+
+========================================
+ DEBUGGING & TROUBLESHOOTING
+========================================
+
+kubectl describe pod podname  
+→ First command to check events & errors.
+
+kubectl logs podname  
+→ Check application logs.
+
+kubectl get events --sort-by=.metadata.creationTimestamp  
+→ List cluster events in order.
+
+kubectl top pod  
+→ Shows CPU & memory usage (metrics server required).
+
+
+========================================
+ NODE MANAGEMENT (ADMIN LEVEL)
+========================================
+
+kubectl cordon nodename  
+→ Marks node as unschedulable (no new pods scheduled).
+
+kubectl uncordon nodename  
+→ Makes node schedulable again.
+
+kubectl drain nodename --ignore-daemonsets  
+→ Evicts pods safely → used during maintenance.
+
+kubectl get nodes -o wide  
+→ Shows nodes with internal/external IPs.
+
+
+========================================
+ CONTEXTS & CLUSTER SWITCHING
+========================================
+
+kubectl config get-contexts  
+→ Lists all available kubeconfig contexts.
+
+kubectl config use-context dev-cluster  
+→ Switches to a different Kubernetes cluster.
+
+kubectl config view  
+→ Shows kubeconfig details.
+
+
+========================================
+ LABELS & SELECTORS
+========================================
+
+kubectl label pods podname env=prod  
+→ Add a label to a pod.
+
+kubectl get pods --show-labels  
+→ Show assigned labels.
+
+kubectl get pods -l env=prod  
+→ List pods based on label selector.
+
+
+========================================
+ JOBS & CRONJOBS
+========================================
+
+kubectl create job backup --image=busybox -- echo "done"  
+→ Creates a job that runs once.
+
+kubectl create cronjob nightly --image=busybox --schedule="0 2 * * *" -- echo "backup"  
+→ Creates a daily CronJob at 2 AM.
+
+kubectl get jobs  
+→ Lists all Jobs.
+
+kubectl get cronjobs  
+→ Lists all CronJobs.
